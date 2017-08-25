@@ -4,7 +4,6 @@
 
     alias cp='cp -iv'                           # Preferred 'cp' implementation
     alias mv='mv -iv'                           # Preferred 'mv' implementation
-    alias ll='ls -GFh'                          # Preferred 'ls' implementation
     alias less='less -FSRXc'                    # Preferred 'less' implementation
     alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
     alias ~="cd ~"                              # ~:            Go Home
@@ -25,11 +24,24 @@
     
 
 #   cd using "frecent" directory, https://github.com/rupa/z
-    . ~/Library/Z/z.sh 
+    . ~/Documents/Code/z/z.sh 
 
 
 #   Always list files/folders after cd
-    cd () { command cd "$@"; ll; }
+    cd () {
+        if [ -z "$1" ]
+        then
+            command pwd
+        else
+            command cd "$@"; ls -l;
+        fi
+    }
+
+
+#   Use graphical ls
+    ls () {
+        command ls -GFh "$@"
+    }
 
 
 #   'cd' to frontmost window of MacOS Finder

@@ -40,24 +40,20 @@
 
 #   Change Prompt
 #   ------------------------------------------------------------
-
+    PROMPT_TXT="$txtgrn"
     function my_prompt(){
-        NODEV=`node --version`
-        NVMV="[node:$NODEV]"
-
+        PROMPT=''
         GIT=''
-        DIRTY=''
         BRANCH=`git branch 2> /dev/null | grep \* | awk '{print $2}'`
-        STATUS=$(git status --porcelain 2> /dev/null)
-        if [[ "$STATUS" != "" ]]; then
-            DIRTY='🔥 '
-        fi
 
         if [[ "$BRANCH" != "" ]]; then
-            GIT="[git:$BRANCH$DIRTY]" 
+            GIT=":$BRANCH"
+            STATUS=$(git status --porcelain 2> /dev/null)
+            if [[ "$STATUS" != "" ]]; then
+                GIT=$GIT' ⚠️'
+            fi
         fi
-        printf "\n$txtred$PWD $txtwht$NVMV $GIT$txtrst\n"
+        printf "\n$PROMPT_TXT$PWD$txtwht$GIT$txtrst\n"
     }
-
-    PROMPT_COMMAND=my_prompt
-    export PS1="⚡ "
+    export PS1="\$ "
+    PROMPT_COMMAND="my_prompt; $PROMPT_COMMAND"
