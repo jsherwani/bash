@@ -50,7 +50,24 @@
             GIT=":$BRANCH"
             STATUS=$(git status --porcelain 2> /dev/null)
             if [[ "$STATUS" != "" ]]; then
-                GIT=$GIT' ⚠️'
+                EMOJI=''
+                ANY_STAGED=$(git status --porcelain | grep '^M' 2> /dev/null)
+                ANY_NEW=$(git status --porcelain | grep '^A' 2> /dev/null)
+                ANY_UNSTAGED=$(git status --porcelain | grep '^.M' 2> /dev/null)
+                ANY_UNTRACKED=$(git status --porcelain | grep '^??' 2> /dev/null)
+                if [[ "$ANY_STAGED" != "" ]]; then
+                    EMOJI=$EMOJI'👍🏻 '
+                fi
+                if [[ "$ANY_NEW" != "" ]]; then
+                    EMOJI=$EMOJI'😮 '
+                fi
+                if [[ "$ANY_UNSTAGED" != "" ]]; then
+                    EMOJI=$EMOJI'😱 '
+                fi
+                if [[ "$ANY_UNTRACKED" != "" ]]; then
+                    EMOJI=$EMOJI'🤔 '
+                fi
+                GIT=$GIT' '$EMOJI
             fi
         fi
         printf "\n$PROMPT_TXT$PWD$txtwht$GIT$txtrst\n"
