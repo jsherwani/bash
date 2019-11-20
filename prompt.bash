@@ -42,32 +42,38 @@
 #   ------------------------------------------------------------
     PROMPT_TXT="$txtgrn"
     function my_prompt(){
+        SKIP_GIT_BRANCH=0
+        SKIP_GIT_STATUS=1
         PROMPT=''
         GIT=''
-        BRANCH=`git branch 2> /dev/null | grep \* | awk '{print $2}'`
+        if [[ $SKIP_GIT_BRANCH != 1 ]]; then
+            BRANCH=`git branch 2> /dev/null | grep \* | awk '{print $2}'`
 
-        if [[ "$BRANCH" != "" ]]; then
-            GIT=":$BRANCH"
-            STATUS=$(git status --porcelain 2> /dev/null)
-            if [[ "$STATUS" != "" ]]; then
-                EMOJI=''
-                ANY_STAGED=$(git status --porcelain | grep '^M' 2> /dev/null)
-                ANY_NEW=$(git status --porcelain | grep '^A' 2> /dev/null)
-                ANY_UNSTAGED=$(git status --porcelain | grep '^.M' 2> /dev/null)
-                ANY_UNTRACKED=$(git status --porcelain | grep '^??' 2> /dev/null)
-                if [[ "$ANY_STAGED" != "" ]]; then
-                    EMOJI=$EMOJI'👍🏻 '
+            if [[ "$BRANCH" != "" ]]; then
+                GIT=":$BRANCH"
+                if [[ $SKIP_GIT_STATUS != 1 ]]; then
+                    STATUS=$(git status --porcelain 2> /dev/null)
+                    if [[ "$STATUS" != "" ]]; then
+                        EMOJI=''
+                        ANY_STAGED=$(git status --porcelain | grep '^M' 2> /dev/null)
+                        ANY_NEW=$(git status --porcelain | grep '^A' 2> /dev/null)
+                        ANY_UNSTAGED=$(git status --porcelain | grep '^.M' 2> /dev/null)
+                        ANY_UNTRACKED=$(git status --porcelain | grep '^??' 2> /dev/null)
+                        if [[ "$ANY_STAGED" != "" ]]; then
+                            EMOJI=$EMOJI'👍🏻 '
+                        fi
+                        if [[ "$ANY_NEW" != "" ]]; then
+                            EMOJI=$EMOJI'😮 '
+                        fi
+                        if [[ "$ANY_UNSTAGED" != "" ]]; then
+                            EMOJI=$EMOJI'😱 '
+                        fi
+                        if [[ "$ANY_UNTRACKED" != "" ]]; then
+                            EMOJI=$EMOJI'🤔 '
+                        fi
+                        GIT=$GIT' '$EMOJI
+                    fi
                 fi
-                if [[ "$ANY_NEW" != "" ]]; then
-                    EMOJI=$EMOJI'😮 '
-                fi
-                if [[ "$ANY_UNSTAGED" != "" ]]; then
-                    EMOJI=$EMOJI'😱 '
-                fi
-                if [[ "$ANY_UNTRACKED" != "" ]]; then
-                    EMOJI=$EMOJI'🤔 '
-                fi
-                GIT=$GIT' '$EMOJI
             fi
         fi
         printf "\n$PROMPT_TXT$PWD$txtwht$GIT$txtrst\n"

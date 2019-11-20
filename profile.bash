@@ -1,4 +1,4 @@
-# source path.bash         # set my path
+source path.bash         # set my path
 source prompt.bash       # custom command prompt
 source finder.bash       # make terminal better
 source network.bash      # shortcuts for network utilities
@@ -8,5 +8,6 @@ source nvm.bash          # load nvm
 source cordova.bash      # command completion for Cordova
 source git.bash          # command completion for Git
 
-source slack.bash        # slack cli
+source alias.bash        # custom aliases
 # source gcloud.bash       # google cloud cli
+source webrtc.bash       # webrtc cache

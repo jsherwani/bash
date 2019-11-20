@@ -2,8 +2,8 @@
 #   MAKE TERMINAL BETTER
 #   -----------------------------
 
-    alias cp='cp -iv'                           # Preferred 'cp' implementation
-    alias mv='mv -iv'                           # Preferred 'mv' implementation
+    # alias cp='cp -iv'                           # Preferred 'cp' implementation
+    # alias mv='mv -iv'                           # Preferred 'mv' implementation
     alias less='less -FSRXc'                    # Preferred 'less' implementation
     alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
     alias ~="cd ~"                              # ~:            Go Home
