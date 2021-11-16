@@ -24,18 +24,18 @@
     
 
 #   cd using "frecent" directory, https://github.com/rupa/z
-    . ~/Documents/Code/z/z.sh 
+    # . ~/Documents/Code/z/z.sh 
 
 
 #   Always list files/folders after cd
-    cd () {
-        if [ -z "$1" ]
-        then
-            command pwd
-        else
-            command cd "$@"; ls -l;
-        fi
-    }
+    # cd () {
+    #     if [ -z "$1" ]
+    #     then
+    #         command pwd
+    #     else
+    #         command cd "$@"; ls -l;
+    #     fi
+    # }
 
 
 #   Use graphical ls
@@ -70,7 +70,7 @@ EOT
 
 
 #   Preferred implemntation of mkdir
-    mkdir() { command mkdir -p "$1"; cd "$1"; }
+    # mkdir() { command mkdir -p "$1"; cd "$1"; }
 
 
 #   Moves a file to the MacOS trash

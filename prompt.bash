@@ -78,5 +78,5 @@
         fi
         printf "\n$PROMPT_TXT$PWD$txtwht$GIT$txtrst\n"
     }
-    export PS1="\$ "
+    # export PS1="\$ "
     PROMPT_COMMAND="my_prompt; $PROMPT_COMMAND"
