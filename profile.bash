@@ -12,6 +12,7 @@ source git.bash          # command completion for Git
 
 source alias.bash        # custom aliases
 source gcloud.bash       # google cloud cli
-source screen.bash       # import depot-tools.sh
+source pop.bash       # import depot-tools.sh
 # source zshrc.bash
 source node.bash         # set node options to 8gb
+source iterm.bash
